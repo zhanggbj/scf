@@ -345,6 +345,7 @@ instance_groups:
   tags:
   - active-passive
   - sequential-startup
+  - istio-managed
   configuration:
     templates:
       properties.bbs.hostname: '"diego-api-bbs.((KUBERNETES_NAMESPACE)).svc.((KUBERNETES_CLUSTER_DOMAIN))"' # cfdot property
@@ -614,6 +615,7 @@ instance_groups:
     release: dotnet-core-buildpack
   tags:
   - sequential-startup
+  - istio-managed
   configuration:
     templates:
       properties.route_registrar.routes: '[{"name":"api", "port":9022, "tags":{"component":"CloudController"}, "uris":["api.((DOMAIN))"], "registration_interval":"10s"}]'
@@ -791,6 +793,8 @@ instance_groups:
           internal: 8082
   - name: loggregator_agent
     release: loggregator-agent
+  tags:
+  - istio-managed
 - name: log-api
   environment_scripts:
   - scripts/configure-HA-hosts.sh
@@ -846,6 +850,8 @@ instance_groups:
           internal: 8082
   - name: route_registrar
     release: routing
+  tags:
+  - istio-managed
   configuration:
     templates:
       properties.route_registrar.routes: '[{"name":"log-api", "port":8081, "uris":["doppler.((DOMAIN))"], "registration_interval":"10s"}, {"name":"loggregator_trafficcontroller", "port":8080, "uris":["loggregator.((DOMAIN))"], "registration_interval":"10s"}]'
@@ -899,6 +905,7 @@ instance_groups:
     release: loggregator-agent
   tags:
   - active-passive
+  - istio-managed
   configuration:
     templates:
       properties.bbs.hostname: '"diego-api-bbs.((KUBERNETES_NAMESPACE)).svc.((KUBERNETES_CLUSTER_DOMAIN))"' # cfdot property
@@ -953,6 +960,8 @@ instance_groups:
           internal: 17018
   - name: loggregator_agent
     release: loggregator-agent
+  tags:
+  - istio-managed
 - name: diego-ssh
   environment_scripts:
   - scripts/configure-HA-hosts.sh
@@ -1155,6 +1164,8 @@ instance_groups:
         - name: nfs-admin
           protocol: TCP
           internal: 7590
+  tags:
+  - istio-managed
   configuration:
     templates:
       properties.bbs.hostname: '"diego-api-bbs.((KUBERNETES_NAMESPACE)).svc.((KUBERNETES_CLUSTER_DOMAIN))"' # cfdot property
