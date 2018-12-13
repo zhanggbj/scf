@@ -322,10 +322,10 @@ instance_groups:
                       - diego-api
                   topologyKey: "beta.kubernetes.io/os"      
         ports:
-        - name: cell-bbs-api
+        - name: https-bbs-api
           protocol: TCP
           internal: 8889
-        - name: cell-bbs-dbg
+        - name: http-bbs-dbg
           protocol: TCP
           internal: 17017
   - name: patch-properties
@@ -580,10 +580,10 @@ instance_groups:
                       - api
                   topologyKey: "beta.kubernetes.io/os"      
         ports:
-        - name: api
+        - name: http-api
           protocol: TCP
           internal: 9022
-        - name: api-tls
+        - name: https-api-tls
           protocol: TCP
           internal: 9023
         - name: statsd
@@ -835,7 +835,7 @@ instance_groups:
                       - log-api
                   topologyKey: "beta.kubernetes.io/os"    
         ports:
-        - name: dropsonde
+        - name: http-dropsonde
           protocol: TCP
           internal: 8081
   - name: loggregator_agent
@@ -894,7 +894,7 @@ instance_groups:
           # Auctioneer has no useful healthcheck routes; we can only use the TCP port
           active-passive-probe: head -c0 </dev/tcp/${HOSTNAME}/9016
         ports:
-        - name: diego-auction
+        - name: https-auction
           protocol: TCP
           internal: 9016
   - name: patch-properties
@@ -952,7 +952,7 @@ instance_groups:
                       - cc-uploader
                   topologyKey: "beta.kubernetes.io/os"      
         ports:
-        - name: cc-up-listen
+        - name: https-up-listen
           protocol: TCP
           internal: 9091
         - name: cc-up-dbg
@@ -1087,7 +1087,7 @@ instance_groups:
     properties:
       bosh_containerization:
         ports:
-        - name: rep-server
+        - name: https-rep-svr
           protocol: TCP
           internal: 1801
   - name: patch-properties
